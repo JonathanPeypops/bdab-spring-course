@@ -1,7 +1,8 @@
 package com.realdolmen.spring.domain;
 
-/**
- * Created by jeansmits on 9/06/15.
- */
-public class Shark {
+public class Shark extends Animal{
+
+    public Shark(String name) {
+        super(name);
+    }
 }

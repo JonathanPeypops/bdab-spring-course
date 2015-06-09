@@ -2,20 +2,24 @@ package com.realdolmen.spring.service;
 
 import com.realdolmen.spring.domain.Animal;
 import com.realdolmen.spring.domain.Visitor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by cda5732 on 25/03/2015.
- */
-public class PairiDaiza implements Zoo {
+public class MyZoo implements Zoo {
+    @Autowired
+    private FoodDistributionServiceImpl foodDistributionService;
     private String name;
     private List<Animal> animals = new ArrayList<>();
 
+    public MyZoo() {
+    }
+
     // TODO fetch the FoodDistributionService
 
-    public PairiDaiza(String name) {
+    public MyZoo(String name) {
         this.name = name;
     }
 
@@ -45,6 +49,10 @@ public class PairiDaiza implements Zoo {
         return animals.size();
     }
 
+    @Override
+    public void feedAnimals() {
+        foodDistributionService.feedAnimalsByType(animals);
+    }
 
     // TODO Call the FoodDistributionService to feed animals
 

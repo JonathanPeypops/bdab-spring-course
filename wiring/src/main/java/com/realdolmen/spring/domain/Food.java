@@ -1,9 +1,9 @@
 package com.realdolmen.spring.domain;
 
-public abstract class Animal {
+public class Food {
     private String name;
 
-    public Animal(String name) {
+    public Food(String name) {
         this.name = name;
     }
 
@@ -11,7 +11,7 @@ public abstract class Animal {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String toString() {
+        return name;
     }
 }
