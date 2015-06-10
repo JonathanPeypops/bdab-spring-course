@@ -1,5 +1,6 @@
 package com.realdolmen.spring.domain;
 
+<<<<<<< HEAD
 
 import com.realdolmen.spring.service.Zoo;
 
@@ -41,4 +42,7 @@ public class MyZoo implements Zoo{
     public int countAnimals() {
         return animalList.size();
     }
+=======
+public class MyZoo{
+>>>>>>> 6521322eee47711593cb307bbf6ddc903173417c
 }

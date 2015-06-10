@@ -2,9 +2,12 @@ package com.realdolmen.spring;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -25,10 +28,30 @@ public class ZooConfig {
     }
 
     // TODO: Configure a DataSource for MySQL in the production profile (BasicDataSource)
+    @Bean
+    public BasicDataSource basicDataSource(){
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setUrl("jdbc:mysql://localhost:3306/test");
+        basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        basicDataSource.setUsername("root");
+        basicDataSource.setPassword("");
+        basicDataSource.setInitialSize(20);
+        basicDataSource.setMaxActive(30);
+        return basicDataSource;
+    }
 
     // TODO: configure an embedded DataSource for H2 in the test profile
+    @Bean
+    public DataSource dataSource(){
+        return new EmbeddedDatabaseBuilder() .setType(EmbeddedDatabaseType.H2) .addScript("classpath:schema.sql") .addScript("classpath:test-data.sql") .build();
+    }
 
     // TODO: Configure an EntityManagerFactory bean for use with Hibernate
+    @Bean
+    public EntityManagerFactory entityManagerFactory(){
+
+        return null;
+    }
 
     // TODO: Make sure your EntityManagerFactoryBean is set up for using dialect H2 in test and dialect MySQL in production
 }
