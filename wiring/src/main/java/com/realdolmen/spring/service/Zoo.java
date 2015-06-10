@@ -4,6 +4,14 @@ import com.realdolmen.spring.domain.Animal;
 import com.realdolmen.spring.domain.Visitor;
 
 public interface Zoo {
+
+    int maxAnimal (int i);
+
+    String ownerName (String s);
+
+    double ticketPrice (double d);
+
+
     void addAnimal(Animal animal);
 
     void releaseAnimal(Animal animal);

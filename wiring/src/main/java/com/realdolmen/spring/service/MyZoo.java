@@ -57,4 +57,18 @@ public class MyZoo implements Zoo {
     // TODO Call the FoodDistributionService to feed animals
 
 
+    @Override
+    public int maxAnimal(int i) {
+        return i;
+    }
+
+    @Override
+    public String ownerName(String s) {
+        return s;
+    }
+
+    @Override
+    public double ticketPrice(double d) {
+        return d;
+    }
 }
