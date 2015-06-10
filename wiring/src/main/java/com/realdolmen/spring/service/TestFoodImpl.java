@@ -15,7 +15,6 @@ public class TestFoodImpl implements  FoodRepository{
         return foods.put(c, food);
     }
 
-
     @Override
     public Food findFoodForAnimalType(Class<? extends Animal> c) {
         return foods.get(c);
