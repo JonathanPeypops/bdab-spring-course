@@ -11,12 +11,14 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.spi.PersistenceProvider;
 import javax.sql.DataSource;
 
 @ComponentScan
@@ -47,11 +49,32 @@ public class ZooConfig {
     }
 
     // TODO: Configure an EntityManagerFactory bean for use with Hibernate
+    @Profile("production")
     @Bean
-    public EntityManagerFactory entityManagerFactory(){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(basicDataSource());
 
-        return null;
+        HibernateJpaVendorAdapter jpaVA = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(jpaVA);
+        jpaVA.setDatabase(Database.MYSQL);
+
+        return em;
+    }
+
+    @Profile("test")
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryTest(){
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(basicDataSource());
+
+        HibernateJpaVendorAdapter jpaVA = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(jpaVA);
+        jpaVA.setDatabase(Database.H2);
+
+        return em;
     }
 
     // TODO: Make sure your EntityManagerFactoryBean is set up for using dialect H2 in test and dialect MySQL in production
+
 }
